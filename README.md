@@ -1,11 +1,24 @@
 # C++组件集合
 
+```
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++                              5            100             37            369
+C/C++ Header                     4             68             21            170
+Markdown                         1             29              0             48
+CMake                            2              7              0             12
+-------------------------------------------------------------------------------
+SUM:                            12            204             58            599
+-------------------------------------------------------------------------------
+```
+
 ## 包含内容
 
 - 线程池 [ThreadPool](./ThreadPool/)
 - 内存池 [MemoryPool](./MemoryPool/)
 
-## 线程池 ThreadPool
+# 线程池
 
 FROM [Here](https://github.com/progschj/ThreadPool)
 
@@ -26,7 +39,7 @@ auto result = pool.enqueue([](int answer) { return answer; }, 42);
 std::cout << result.get() << std::endl;
 ```
 
-## 内存池 MemoryPool
+# 内存池
 
 FROM [Here](https://github.com/DevShiftTeam/AppShift-MemoryPool/tree/main)
 

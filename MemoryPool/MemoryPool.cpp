@@ -8,7 +8,7 @@
 MemoryPool::MemoryPool(size_t block_size)
     : default_block_size(block_size), first_block(nullptr),
       current_block(nullptr), current_scope(nullptr) {
-    create_block();
+    create_block(default_block_size);
 }
 
 MemoryPool::~MemoryPool() {
@@ -19,17 +19,17 @@ MemoryPool::~MemoryPool() {
     }
 }
 
-void MemoryPool::create_block() {
+void MemoryPool::create_block(size_t size) {
 
     MemoryBlockHeader *new_block = reinterpret_cast<MemoryBlockHeader *>(
-        malloc(sizeof(MemoryBlockHeader) + default_block_size));
+        malloc(sizeof(MemoryBlockHeader) + size));
     if (new_block == nullptr) {
         throw MemoryPoolError::CONNOT_CREATE_BLOCK;
     }
 
     new_block->pre = current_block;
     new_block->next = nullptr;
-    new_block->block_size = default_block_size;
+    new_block->block_size = size;
     new_block->offset = 0;
     new_block->num_allocated = 0;
     new_block->num_deleted = 0;
@@ -45,16 +45,14 @@ void MemoryPool::create_block() {
 
 void *MemoryPool::allocate(size_t size) {
 
-    /* size needed cannot be store in a block */
+    /* size needed cannot be store in a default block */
     if (sizeof(MemoryUnitHeader) + size > default_block_size) {
-        throw MemoryPoolError::EXCEEDS_MAX_SIZE;
-    }
-
-    /* not enough space in this block, crate a new one */
-    if (sizeof(MemoryUnitHeader) + size > current_block->block_size -
-                                              sizeof(MemoryBlockHeader) -
-                                              current_block->offset) {
-        create_block();
+        create_block(sizeof(MemoryUnitHeader) + size);
+    } /* not enough space in this block, crate a new one */
+    else if (sizeof(MemoryUnitHeader) + size > current_block->block_size -
+                                                   sizeof(MemoryBlockHeader) -
+                                                   current_block->offset) {
+        create_block(default_block_size);
     }
 
     /* now enough space in this block */

@@ -74,7 +74,7 @@ class MemoryPool {
 
     MemoryScopeHeader *current_scope;
 
-    void create_block();
+    void create_block(size_t size);
 };
 
 template <class T> T *MemoryPool::allocate(int instances) {

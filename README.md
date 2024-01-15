@@ -57,3 +57,19 @@ mp->end_scope();
 delete mp;
 ```
 
+### 测试结果
+
+```
+Efficiency Test Result: ==================================================================
+
+	 STDString  used:	844ms	(the string uses standard new/delete)
+	 PoolString used:	364ms	(the string uses MemoryPool)
+	 STLString  used:	708ms	(the string from STL)
+
+This memory pool is 2.31868 times more efficient than standard new/delete.
+
+Function Test Result:   ==================================================================
+
+scope functions work well && dump function work well
+```
+

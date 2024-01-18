@@ -66,8 +66,8 @@ int main() {
     auto result2 = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_time - start_time);
 
-    std::cout << "\t\t使用连接池, 一千次连续查询用时: " << result2.count()
-              << " ms" << std::endl;
+    std::cout << "\t\t使用连接池, 用时: " << result2.count() << " ms"
+              << std::endl;
 
     std::cout << "\t使用连接池的效率是不使用连接池的 "
               << result.count() / result2.count() << " 倍" << std::endl
@@ -233,8 +233,8 @@ int main() {
     auto result4 = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_time - start_time);
 
-    std::cout << "\t\t使用连接池, 每个线程连续查询250次: " << result4.count()
-              << " ms" << std::endl;
+    std::cout << "\t\t使用连接池,  用时: " << result4.count() << " ms"
+              << std::endl;
 
     std::cout << "\t使用连接池的效率是不使用连接池的 "
               << result3.count() / result4.count() << " 倍" << std::endl;
